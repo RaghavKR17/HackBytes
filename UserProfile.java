@@ -1,29 +1,17 @@
-import java.util.HashMap;
-import java.util.Map;
-
 public class UserProfile {
-    private Map<String, Integer> hoursLogged; // Map to store hours logged for each volunteer opportunity
+    private int hoursLogged; // Total hours logged for the user
 
     public UserProfile() {
-        this.hoursLogged = new HashMap<>();
+        this.hoursLogged = 0;
     }
 
     // Method to log hours for a volunteer opportunity
-    public void logHours(String opportunityTitle, int hours) {
-        hoursLogged.put(opportunityTitle, hoursLogged.getOrDefault(opportunityTitle, 0) + hours);
+    public void logHours(int hours) {
+        hoursLogged += hours;
     }
 
-    // Method to get total hours logged for all volunteer opportunities
+    // Method to get total hours logged for the user
     public int getTotalHoursLogged() {
-        int totalHours = 0;
-        for (int hours : hoursLogged.values()) {
-            totalHours += hours;
-        }
-        return totalHours;
-    }
-
-    // Getter for hours logged
-    public Map<String, Integer> getHoursLogged() {
         return hoursLogged;
     }
 }
