@@ -75,7 +75,7 @@ public class VolunteerOpportunityFinder {
             System.out.print("Enter your phone number for contact: ");
             phoneNumber = scanner.nextLine();
             // Check if the phone number consists of digits only and has at least 7 characters
-            if (phoneNumber.matches("\\d{7,}")) {
+            if (phoneNumber.matches("\\d{10,}")) {
                 validPhoneNumber = true;
             } else {
                 System.out.println("Please enter a valid phone number with at least 7 digits.");
