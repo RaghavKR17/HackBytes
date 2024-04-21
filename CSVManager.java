@@ -35,6 +35,24 @@ public class CSVManager {
         }
     }
 
+    public List<VolunteerOpportunity> searchOpportunitiesInCity(String city) {
+        List<VolunteerOpportunity> opportunities = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(OPPORTUNITY_FILE_PATH))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                String opportunityCity = values[2].toLowerCase(); // City is at index 2
+                if (opportunityCity.equals(city)) {
+                    VolunteerOpportunity opportunity = new VolunteerOpportunity(values[0], values[1], values[2], values[3]);
+                    opportunities.add(opportunity);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return opportunities;
+    }
+    
     public List<VolunteerOpportunity> searchOpportunitiesInCity(String city, String keywords) {
         List<VolunteerOpportunity> opportunities = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(OPPORTUNITY_FILE_PATH))) {
