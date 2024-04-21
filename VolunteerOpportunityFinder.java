@@ -4,10 +4,12 @@ import java.util.Scanner;
 public class VolunteerOpportunityFinder {
     private String city;
     private CSVManager csvManager;
+    private User currentUser;
 
     public VolunteerOpportunityFinder(String city) {
         this.city = city;
         this.csvManager = new CSVManager();
+        this.currentUser = null;
     }
 
     public void run() {
@@ -17,7 +19,8 @@ public class VolunteerOpportunityFinder {
             System.out.println("2. Post an opportunity");
             System.out.println("3. Find an opportunity");
             System.out.println("4. Log hours");
-            System.out.println("5. Exit");
+            System.out.println("5. View total logged hours");
+            System.out.println("6. Exit");
             System.out.print("Please enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
@@ -36,6 +39,9 @@ public class VolunteerOpportunityFinder {
                     logHours(scanner);
                     break;
                 case 5:
+                    viewTotalLoggedHours();
+                    break;
+                case 6:
                     System.out.println("Thank you for using Volunteer Opportunity Finder!");
                     return;
                 default:
@@ -43,7 +49,7 @@ public class VolunteerOpportunityFinder {
             }
         }
     }
-
+    
     private void createAccount(Scanner scanner) {
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
@@ -153,5 +159,15 @@ public class VolunteerOpportunityFinder {
     
         // If no matching user is found, return null
         return null;
+    }
+
+    private void viewTotalLoggedHours() {
+        if (currentUser != null) {
+            UserProfile profile = currentUser.getProfile();
+            int totalHours = profile.getTotalHoursLogged();
+            System.out.println("Total logged hours: " + totalHours);
+        } else {
+            System.out.println("No user is logged in.");
+        }
     }
 }
