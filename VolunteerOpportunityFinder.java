@@ -73,7 +73,7 @@ public class VolunteerOpportunityFinder {
         boolean validPhoneNumber = false;
         while (!validPhoneNumber) {
             System.out.print("Enter your phone number for contact: ");
-            phoneNumber = scanner.nextLine();
+            phoneNumber = scanner.nextLine().strip("-").strip(" ").strip("(").strip(")");
             // Check if the phone number consists of digits only and has at least 10 characters
             if (phoneNumber.matches("\\d{10,10}")) {
                 validPhoneNumber = true;
