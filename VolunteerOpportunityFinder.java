@@ -54,19 +54,21 @@ public class VolunteerOpportunityFinder {
     private void createAccount(Scanner scanner) {
         System.out.print("Enter your username: ");
         String username = scanner.nextLine();
-
+    
         // Check if the username already exists
         if (csvManager.isUserExists(username)) {
             System.out.println("Username already exists. Please choose a different username.");
             return;
         }
-
+    
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
         
-        // Create a new user and save it to the CSV file
-        User user = new User(username, password);
-        csvManager.writeUserToCSV(user);
+        // Create a new user
+        User user = new User(username, password); // No need to initialize hours here
+        
+        // Initialize the user with 0 hours and password
+        csvManager.initializeUserWithZeroHours(username, password);
     
         System.out.println("Account created successfully!");
     }
