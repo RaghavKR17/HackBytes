@@ -88,18 +88,31 @@ public class VolunteerOpportunityFinder {
     }
 
     private void findOpportunity(Scanner scanner) {
-        System.out.print("Enter keywords to search opportunities: ");
-        String keywords = scanner.nextLine();
+        List<VolunteerOpportunity> allOpportunities = csvManager.searchOpportunitiesInCity(city);
 
-        List<VolunteerOpportunity> opportunities = csvManager.searchOpportunitiesInCity(city, keywords);
-        if (opportunities.isEmpty()) {
-            System.out.println("No opportunities found in your city for the given keywords.");
+        if (allOpportunities.isEmpty()) {
+            System.out.println("No volunteer opportunities available.");
         } else {
-            System.out.println("Opportunities found:");
-            for (VolunteerOpportunity opportunity : opportunities) {
+            System.out.println("Available volunteer opportunities:");
+            for (VolunteerOpportunity opportunity : allOpportunities) {
                 System.out.println(opportunity);
             }
+            
+            System.out.println();
+            System.out.print("Enter keywords to filter opportunities (leave blank to show all): ");
+            String keywords = scanner.nextLine();
+    
+            List<VolunteerOpportunity> filteredOpportunities = csvManager.searchOpportunitiesInCity(city, keywords);
+            if (filteredOpportunities.isEmpty()) {
+                System.out.println("No opportunities found in your city for the given keywords.");
+            } else {
+                System.out.println("Filtered opportunities:");
+                for (VolunteerOpportunity opportunity : filteredOpportunities) {
+                    System.out.println(opportunity);
+                }
+            }
         }
+    
     }
 
     private void logHours(Scanner scanner) {
