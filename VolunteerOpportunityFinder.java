@@ -13,27 +13,54 @@ public class VolunteerOpportunityFinder {
     public void run() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.println("\n1. Post an opportunity");
-            System.out.println("2. Find an opportunity");
-            System.out.println("3. Exit");
+            System.out.println("\n1. Create an account");
+            System.out.println("2. Post an opportunity");
+            System.out.println("3. Find an opportunity");
+            System.out.println("4. Log hours");
+            System.out.println("5. Exit");
             System.out.print("Please enter your choice: ");
             int choice = scanner.nextInt();
             scanner.nextLine(); // Consume newline
             
             switch (choice) {
                 case 1:
-                    postOpportunity(scanner);
+                    createAccount(scanner);
                     break;
                 case 2:
-                    findOpportunity(scanner);
+                    postOpportunity(scanner);
                     break;
                 case 3:
+                    findOpportunity(scanner);
+                    break;
+                case 4:
+                    logHours(scanner);
+                    break;
+                case 5:
                     System.out.println("Thank you for using Volunteer Opportunity Finder!");
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
         }
+    }
+
+    private void createAccount(Scanner scanner) {
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter your password: ");
+        String password = scanner.nextLine();
+    
+        // Check if the username already exists
+        if (csvManager.isUserExists(username)) {
+            System.out.println("Username already exists. Please choose a different username.");
+            return;
+        }
+    
+        // Create a new user and save it to the CSV file
+        User user = new User(username, password);
+        csvManager.writeUserToCSV(user);
+    
+        System.out.println("Account created successfully!");
     }
 
     private void postOpportunity(Scanner scanner) {
@@ -62,5 +89,45 @@ public class VolunteerOpportunityFinder {
                 System.out.println(opportunity);
             }
         }
+    }
+
+    private void logHours(Scanner scanner) {
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+        System.out.print("Enter your password: ");
+        String password = scanner.nextLine();
+
+        User user = authenticateUser(username, password);
+        if (user != null) {
+            System.out.print("Enter the title of the opportunity you volunteered for: ");
+            String opportunityTitle = scanner.nextLine();
+            VolunteerOpportunity opportunity = csvManager.findOpportunityByTitle(opportunityTitle);
+            if (opportunity != null) {
+                System.out.print("Enter the number of hours you volunteered: ");
+                int hours = scanner.nextInt();
+                user.getProfile().logHours(opportunity.getTitle(), hours);
+                System.out.println("Hours logged successfully!");
+            } else {
+                System.out.println("Opportunity not found.");
+            }
+        } else {
+            System.out.println("Authentication failed. Username or password is incorrect.");
+        }
+    }
+
+    private User authenticateUser(String username, String password) {
+        // Retrieve user data from CSV file
+        List<String[]> userData = csvManager.readCSV("users.csv");
+    
+        // Iterate through user data to find matching username and password
+        for (String[] user : userData) {
+            if (user[0].equals(username) && user[1].equals(password)) {
+                // If username and password match, return the authenticated user
+                return new User(username, password);
+            }
+        }
+    
+        // If no matching user is found, return null
+        return null;
     }
 }
