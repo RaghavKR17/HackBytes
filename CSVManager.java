@@ -17,6 +17,17 @@ public class CSVManager {
             e.printStackTrace();
         }
     }
+    public void writeUserProfileToCSV(String username, UserProfile profile) {
+        try (FileWriter writer = new FileWriter(USER_FILE_PATH, true)) {
+            StringBuilder userData = new StringBuilder(username);
+            for (Map.Entry<String, Integer> entry : profile.getHoursLogged().entrySet()) {
+                userData.append(",").append(entry.getKey()).append(":").append(entry.getValue());
+            }
+            writer.write(userData.toString() + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     public boolean isUserExists(String username) {
         List<String[]> userData = readCSV(USER_FILE_PATH);
         for (String[] user : userData) {
