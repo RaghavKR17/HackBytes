@@ -1,18 +1,12 @@
 public class VolunteerOpportunity {
-    private String title;
     private String description;
     private String location;
     private String phoneNumber;
 
-    public VolunteerOpportunity(String title, String description, String location, String phoneNumber) {
-        this.title = title;
+    public VolunteerOpportunity(String description, String location, String phoneNumber) {
         this.description = description;
         this.location = location;
         this.phoneNumber = phoneNumber;
-    }
-
-    public String getTitle() {
-        return title;
     }
 
     public String getDescription() {
@@ -29,6 +23,6 @@ public class VolunteerOpportunity {
 
     @Override
     public String toString() {
-        return "Title: " + title + ", Description: " + description + ", Location: " + location + ", Phone Number: " + phoneNumber;
+        return "Description: " + description + ", Location: " + location + ", Phone Number: " + phoneNumber;
     }
 }
