@@ -21,4 +21,9 @@ public class UserProfile {
         }
         return totalHours;
     }
+
+    // Getter for hours logged
+    public Map<String, Integer> getHoursLogged() {
+        return hoursLogged;
+    }
 }
