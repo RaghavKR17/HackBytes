@@ -7,7 +7,7 @@ import java.util.List;
 
 
 public class CSVManager {
-    private static final String USER_FILE_PATH = "users.csv";
+    static final String USER_FILE_PATH = "users.csv";
     private static final String OPPORTUNITY_FILE_PATH = "opportunities.csv";
 
     public void writeOpportunityToCSV(VolunteerOpportunity opportunity) {
@@ -158,5 +158,14 @@ public class CSVManager {
             e.printStackTrace();
         }
         return data;
+    }
+
+    public void initializeUserWithZeroHours(String username, String password) {
+        try (FileWriter writer = new FileWriter(USER_FILE_PATH, true)) {
+            String[] data = {username, password, "0"}; // Initialize hours to 0
+            writer.write(String.join(",", data) + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
