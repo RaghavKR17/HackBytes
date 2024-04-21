@@ -1,5 +1,3 @@
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         System.out.println("Welcome to Volunteer Opportunity Finder! Feel free to use this anytime!");
@@ -11,7 +9,7 @@ public class Main {
         // Example usage of the application
         VolunteerOpportunityFinder app = new VolunteerOpportunityFinder(city);
         app.run();
-        
+         
         scanner.close();
     }
 }
