@@ -68,9 +68,20 @@ public class VolunteerOpportunityFinder {
         String title = scanner.nextLine();
         System.out.print("Enter description of the opportunity: ");
         String description = scanner.nextLine();
-        System.out.print("Enter your phone number for contact: ");
-        String phoneNumber = scanner.nextLine();
-
+        
+        String phoneNumber = "";
+        boolean validPhoneNumber = false;
+        while (!validPhoneNumber) {
+            System.out.print("Enter your phone number for contact: ");
+            phoneNumber = scanner.nextLine();
+            // Check if the phone number consists of digits only and has at least 7 characters
+            if (phoneNumber.matches("\\d{7,}")) {
+                validPhoneNumber = true;
+            } else {
+                System.out.println("Please enter a valid phone number with at least 7 digits.");
+            }
+        }
+    
         VolunteerOpportunity opportunity = new VolunteerOpportunity(title, description, city, phoneNumber);
         csvManager.writeOpportunityToCSV(opportunity);
         System.out.println("Opportunity posted successfully!");
