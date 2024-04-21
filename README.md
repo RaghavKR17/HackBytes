@@ -1,0 +1,1 @@
+Volunteering Portal: Create a portal where students can find volunteer opportunities both on and off campus. Partner with local organizations and non-profits to offer a variety of volunteer experiences, such as community service projects, environmental initiatives, and tutoring programs.
